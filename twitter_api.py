@@ -21,12 +21,12 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit= True)
 
 
-search_query = "'Elon Musk' 'fired' -filter:retweets AND -filter:replies AND -filter:links"
+search_query = "'Emmanuel Macron' 'présidentielle' 'election 2022' -filter:retweets AND -filter:replies AND -filter:links"
 number_of_tweets = 100
 
 try:
     # The number of tweets we want to retrieve from search
-    tweets = api.search_tweets(q=search_query, lang = "en", count = number_of_tweets, tweet_mode = 'extended')
+    tweets = api.search_tweets(q=search_query, lang = "fr", count = number_of_tweets, tweet_mode = 'extended')
 
     # Pulling some attributes from the tweet
     attributes_container = [[tweet.user.name, tweet.created_at, tweet.favorite_count, tweet.source, tweet.full_text] for tweet in tweets]
@@ -40,9 +40,5 @@ except BaseException as e:
     print('Status Failed On', str(e))
 
 
-#public_tweets = api.home_timeline()
-#print(public_tweets)
-
-
-#for tweet in public_tweets:
-#    print(tweet.text)
+# Save the DataFrame into a csv file
+tweets_df.to_csv('tweets.csv')
